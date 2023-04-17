@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/backend";
+const URL = "https://mavle.dk/tomcat/ca2_backend";
 
 function handleHttpErrors(res) {
  if (!res.ok) {
