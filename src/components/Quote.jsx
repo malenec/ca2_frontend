@@ -2,15 +2,15 @@ import React from 'react'
 import facade from "../apiFacade";
 import { useState, useEffect } from 'react'
 
-function Test() {
+function Quote() {
 
     const [quote, setQuote] = useState("Loading")
 
     async function fetchQuote() {
-        const response = await fetch("https://api.kanye.rest/");
+        const response = await fetch("http://localhost:8080/backend/api/ext/kanye");
         const jsonData = await response.json();
         console.log(jsonData);
-        setQuote(jsonData.quote);
+        setQuote(jsonData);
     }
 
     return (
@@ -22,4 +22,4 @@ function Test() {
     )
 }
 
-export default Test
+export default Quote

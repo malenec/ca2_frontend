@@ -1,10 +1,8 @@
 import React, { useState } from "react"
-import { Routes, Route } from 'react-router-dom'
+
 import facade from "./apiFacade";
 import Header from "./components/Header";
-import Home from "./routes/Home";
-import About from "./routes/About";
-import Test from "./components/Test";
+
 import Content from "./components/Content";
 
 function App() {
