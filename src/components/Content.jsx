@@ -9,7 +9,7 @@ function Content({ user }) {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home user={user}/>} />
                 <Route path="/about" element={<About user={user} />} />
             </Routes>
         </div>
