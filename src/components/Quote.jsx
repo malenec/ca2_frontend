@@ -5,7 +5,10 @@ import { useState, useEffect } from 'react'
 function Quote({ user }) {
 
   const [quote, setQuote] = useState("Loading")
+  const [age, setAge] = useState("You have not predicted your age yet")
+  const [name, setName] = useState([])
   const url = "http://localhost:8080/backend/api/ext/kanye"
+  const url2 = "http://localhost:8080/backend/api/ext/age"
 
   async function fetchQuote() {
     const response = await fetch(url);
@@ -14,12 +17,27 @@ function Quote({ user }) {
     setQuote(jsonData);
   }
 
-
   const saveQuote = () => {
     const options = quoteOptions("POST", { quote: quote });
     return fetch(url + "/" + user.username, options)
-
   }
+
+  async function fetchAge(evt) {
+    const response = await fetch(url2 + "/" + name);
+    const jsonData = await response.json();
+    setAge(jsonData);
+  }
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetchAge();
+    setName('');
+  };
+
 
   const quoteOptions = (method, body) => {
     var opts = {
@@ -38,6 +56,17 @@ function Quote({ user }) {
 
   return (
     <div>
+
+      <p> Type in your name, and we will predict your age</p>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={name} onChange={handleChange} />
+        <button type="submit">Predict age</button>
+        <p>Your predicted age is: {age}</p>
+
+      </form>
+
+
+
 
       {user.username === "" ? (<h4>Log in to see Kanye quotes </h4>) :
         (<>
