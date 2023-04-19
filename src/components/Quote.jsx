@@ -22,6 +22,11 @@ function Quote({ user }) {
     return fetch(url + "/" + user.username, options)
   }
 
+  const saveAge = () => {
+    const options = quoteOptions("POST", { age: age });
+    return fetch(url2 + "/" + user.username, options)
+  }
+
   async function fetchAge(evt) {
     const response = await fetch(url2 + "/" + name);
     const jsonData = await response.json();
@@ -62,18 +67,14 @@ function Quote({ user }) {
         <input type="text" value={name} onChange={handleChange} />
         <button type="submit">Predict age</button>
         <p>Your predicted age is: {age}</p>
-
       </form>
-
-
-
 
       {user.username === "" ? (<h4>Log in to see Kanye quotes </h4>) :
         (<>
           <p> Quote from Kanye West <button onClick={fetchQuote}> Get Quote </button> </p>
-          <button onClick={saveQuote}> save </button>
+          <button onClick={saveQuote}> saveQuote </button>
+          <button onClick={saveAge}> saveAge </button>
         </>)}
-
       <p>{quote}</p>
     </div>
   )
