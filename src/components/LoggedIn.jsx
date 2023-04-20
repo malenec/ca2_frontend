@@ -3,6 +3,7 @@ import facade from "../apiFacade";
 
 function LoggedIn({ user, logout }) {
     const [dataFromServer, setDataFromServer] = useState("Loading...")
+
     useEffect(() => {
         const url = user.roles.split(',').includes('user') ? '/api/info/user' : '/api/info/admin';
         facade.fetchData(url).then(res => {
