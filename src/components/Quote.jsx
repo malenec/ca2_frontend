@@ -7,7 +7,9 @@ function Quote({ user }) {
   const [quote, setQuote] = useState("Loading")
   const [age, setAge] = useState("You have not predicted your age yet")
   const [name, setName] = useState([])
+  //url uses a fetch method from the facade and therefore needs a smaller url than the following (it attaches the url to the facade url)
   const url = "/api/ext/kanye"
+  const url1 =  "http://localhost:8080/backend/api/ext/kanye"
   const url2 = "http://localhost:8080/backend/api/ext/age"
 
   const fetchQuote = () => {
@@ -28,7 +30,7 @@ function Quote({ user }) {
 
   const saveQuote = () => {
     const options = quoteOptions("POST", { quote: quote });
-    return fetch(url + "/" + user.username, options)
+    return fetch(url1 + "/" + user.username, options)
   }
 
   const saveAge = () => {
@@ -81,8 +83,8 @@ function Quote({ user }) {
       {user.username === "" ? (<h4>Log in to see Kanye quotes </h4>) :
         (<>
           <p> Quote from Kanye West <button onClick={handleClick}> Get Quote </button> </p>
-          <p> {quote} </p>
           <button onClick={saveQuote}> saveQuote </button>
+          <p> {quote} </p>
           <button onClick={saveAge}> saveAge </button>
         </>)}
       
