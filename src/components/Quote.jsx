@@ -3,18 +3,27 @@ import facade from "../apiFacade";
 import { useState, useEffect } from 'react'
 
 function Quote({ user }) {
-
+  const [isUdated, setIsUpdated] = useState(false)
   const [quote, setQuote] = useState("Loading")
   const [age, setAge] = useState("You have not predicted your age yet")
   const [name, setName] = useState([])
-  const url = "http://localhost:8080/backend/api/ext/kanye"
+  const url = "/api/ext/kanye"
   const url2 = "http://localhost:8080/backend/api/ext/age"
 
-  async function fetchQuote() {
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    console.log(jsonData);
-    setQuote(jsonData);
+  const fetchQuote = () => {
+    facade.fetchData(url).then(res => {
+      console.log(res);
+      setQuote(res)
+      setIsUpdated(false)
+  })};
+
+  // THIS USEEFFECT IS NOT DONE YET, IT GETS ACTIVATED TWICE AND ALSO BEFORE BUTTON IS EVEN CLICKED
+  useEffect(() => {
+    fetchQuote();
+  }, [isUdated])
+
+  const handleClick = (evt) => {
+    setIsUpdated(true)
   }
 
   const saveQuote = () => {
@@ -71,11 +80,12 @@ function Quote({ user }) {
 
       {user.username === "" ? (<h4>Log in to see Kanye quotes </h4>) :
         (<>
-          <p> Quote from Kanye West <button onClick={fetchQuote}> Get Quote </button> </p>
+          <p> Quote from Kanye West <button onClick={handleClick}> Get Quote </button> </p>
+          <p> {quote} </p>
           <button onClick={saveQuote}> saveQuote </button>
           <button onClick={saveAge}> saveAge </button>
         </>)}
-      <p>{quote}</p>
+      
     </div>
   )
 }
