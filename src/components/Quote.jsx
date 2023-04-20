@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react'
 function Quote({ user }) {
   const [isUdated, setIsUpdated] = useState(false)
   const [quote, setQuote] = useState("Loading")
+  const [quoteId, setQuoteId] = useState(0)
   const [age, setAge] = useState("You have not predicted your age yet")
   const [name, setName] = useState([])
   //url uses a fetch method from the facade and therefore needs a smaller url than the following (it attaches the url to the facade url)
   const url = "/api/ext/kanye"
   const url1 =  "http://localhost:8080/backend/api/ext/kanye"
   const url2 = "http://localhost:8080/backend/api/ext/age"
+  const url3 = "http://localhost:8080/backend/api/ext/delete"
 
   const fetchQuote = () => {
     facade.fetchData(url).then(res => {
@@ -38,6 +40,11 @@ function Quote({ user }) {
     return fetch(url2 + "/" + user.username, options)
   }
 
+  const deleteQuote = () => {
+    const options = quoteOptions("DELETE", { quote: quote });
+    return fetch(url3 + "/" + user.username + "/" + quoteId, options)
+  }
+
   async function fetchAge(evt) {
     const response = await fetch(url2 + "/" + name);
     const jsonData = await response.json();
@@ -46,6 +53,10 @@ function Quote({ user }) {
 
   const handleChange = (event) => {
     setName(event.target.value);
+  };
+
+  const handleQuoteChange = (event) => {
+    setQuoteId(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -86,6 +97,10 @@ function Quote({ user }) {
           <button onClick={saveQuote}> saveQuote </button>
           <p> {quote} </p>
           <button onClick={saveAge}> saveAge </button>
+          <p>
+          <input type="number" placeholder='Type ID' value={quoteId} onChange={handleQuoteChange} />
+          <button onClick={deleteQuote}> Delete quote </button>
+          </p>
         </>)}
       
     </div>
