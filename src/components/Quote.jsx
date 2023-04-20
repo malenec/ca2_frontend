@@ -13,6 +13,7 @@ function Quote({ user }) {
   const url1 =  "http://localhost:8080/backend/api/ext/kanye"
   const url2 = "http://localhost:8080/backend/api/ext/age"
   const url3 = "http://localhost:8080/backend/api/ext/delete"
+  // These urls are to be put into a setting.js file
 
   const fetchQuote = () => {
     facade.fetchData(url).then(res => {
