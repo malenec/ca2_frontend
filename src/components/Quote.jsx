@@ -10,9 +10,9 @@ function Quote({ user }) {
   const [name, setName] = useState([])
   //url uses a fetch method from the facade and therefore needs a smaller url than the following (it attaches the url to the facade url)
   const url = "/api/ext/kanye"
-  const url1 = "http://localhost:8080/backend/api/ext/kanye"
-  const url2 = "http://localhost:8080/backend/api/ext/age"
-  const url3 = "http://localhost:8080/backend/api/ext/delete"
+  const url1 = "https://mavle.dk/tomcat/ca2_backend/api/ext/kanye"
+  const url2 = "https://mavle.dk/tomcat/ca2_backend/api/ext/age"
+  const url3 = "https://mavle.dk/tomcat/ca2_backend/api/ext/delete"
   // These urls are to be put into a setting.js file
 
   const fetchQuote = () => {
@@ -43,7 +43,7 @@ function Quote({ user }) {
   }
 
   const deleteQuote = () => {
-    const options = quoteOptions("DELETE", { quote: quote });
+    const options = quoteOptions("DELETE");
     return fetch(url3 + "/" + user.username + "/" + quoteId, options)
   }
 
